@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 180000
+        response-timeout: 180s
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: ${GATEWAY_ALLOWED_ORIGINS:*}
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - OPTIONS
+      routes:
+        - id: check-usuario-route
+          uri: http://localhost:8081
+          predicates:
+              - Path=/test/login
